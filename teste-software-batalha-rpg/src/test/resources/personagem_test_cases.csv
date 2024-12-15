@@ -1,0 +1,49 @@
+Classe,Ataque,Velocidade,Resistência,Defesa,Saída,MensagemEsperada
+Assassino,7,3,7,3,Valido,
+Assassino,6,3,6,5,Valido,
+Assassino,5,5,5,5,Valido,
+Assassino,6,3,8,3,Invalido,"Para um Assassino, Ataque e Velocidade devem ser iguais ou empatados."
+Assassino,3,6,5,6,Invalido,"Para um Assassino, Ataque e Velocidade devem ser iguais ou empatados."
+Assassino,5,3,8,3,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,7,3,8,2,Invalido,Todos os atributos devem ter pelo menos 3 pontos.
+Assassino,7,3,9,3,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,6,3,8,2,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,8,3,6,3,Invalido,"Para um Assassino, Ataque e Velocidade devem ser iguais ou empatados."
+Assassino,5,6,3,6,Invalido,"Para um Assassino, Ataque e Velocidade devem ser iguais ou empatados."
+Assassino,8,3,5,3,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,8,3,7,2,Invalido,Todos os atributos devem ter pelo menos 3 pontos.
+Assassino,9,3,7,3,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,8,3,6,2,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,3,7,3,7,Invalido,"Para um Assassino, Resistência e Defesa devem ser menores ou iguais a Ataque e Velocidade."
+Assassino,2,8,2,8,Invalido,Todos os atributos devem ter pelo menos 3 pontos.
+Assassino,3,6,3,6,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,2,7,2,7,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,7,3,7,2,Invalido,Somatório dos atributos deve ser igual a 20.
+Assassino,6,3,6,3,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,7,3,3,7,Valido,
+Guerreiro,6,3,5,6,Valido,
+Guerreiro,6,5,3,6,Valido,
+Guerreiro,5,5,5,5,Valido,
+Guerreiro,8,3,3,6,Invalido,"Para um Guerreiro, Resistência e Ataque devem ser iguais ou empatados."
+Guerreiro,10,4,3,3,Invalido,"Para um Guerreiro, Resistência e Ataque devem ser iguais ou empatados."
+Guerreiro,8,2,4,6,Invalido,Todos os atributos devem ter pelo menos 3 pontos.
+Guerreiro,8,3,3,5,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,9,4,3,3,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,10,4,2,3,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,7,2,4,6,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,9,4,2,3,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,6,3,3,8,Invalido,"Para um Guerreiro, Resistência e Ataque devem ser iguais ou empatados."
+Guerreiro,3,4,3,10,Invalido,"Para um Guerreiro, Resistência e Ataque devem ser iguais ou empatados."
+Guerreiro,6,2,4,8,Invalido,Todos os atributos devem ter pelo menos 3 pontos.
+Guerreiro,5,3,3,8,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,3,4,3,9,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,3,4,2,10,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,6,2,4,7,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,3,4,2,9,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,5,7,3,5,Invalido,"Para um Guerreiro, Defesa e Velocidade não podem exceder Resistência ou Ataque."
+Guerreiro,5,8,2,5,Invalido,Todos os atributos devem ter pelo menos 3 pontos.
+Guerreiro,5,6,3,5,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,5,7,2,5,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,7,4,2,7,Invalido,Todos os atributos devem ter pelo menos 3 pontos.
+Guerreiro,7,3,2,7,Invalido,Somatório dos atributos deve ser igual a 20.
+Guerreiro,6,3,3,6,Invalido,Somatório dos atributos deve ser igual a 20.
