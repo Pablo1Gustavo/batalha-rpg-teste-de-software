@@ -1,113 +1,128 @@
 package br.ufrn.batalharpg;
 
 public abstract class Personagem {
-    private Integer ataque;
+	private Integer ataque;
 
-    private Integer defesa;
+	private Integer defesa;
 
-    private Integer velocidade;
+	private Integer velocidade;
 
-    private Integer resistencia;
+	private Integer resistencia;
 
-    private Integer vida;
+	private Integer vida;
 
-    Personagem() {
-    }
+	Personagem() {
+	}
 
-    public Personagem(Integer ataque, Integer defesa, Integer velocidade, Integer resistencia) {
-        this.ataque = ataque;
-        this.defesa = defesa;
-        this.velocidade = velocidade;
-        this.resistencia = resistencia;
+	public Personagem(Integer ataque, Integer defesa, Integer velocidade, Integer resistencia) {
+		this.ataque = ataque;
+		this.defesa = defesa;
+		this.velocidade = velocidade;
+		this.resistencia = resistencia;
 
-        checarTotal();
-        checarValorMinimo();
-        checarRegraDeClasse();
+		checarTotal();
+		checarValorMinimo();
+		checarRegraDeClasse();
 
-        this.vida = 5 * this.resistencia;
-    }
+		this.vida = 5 * this.resistencia;
+	}
 
-    abstract void checarRegraDeClasse();
+	abstract void checarRegraDeClasse();
 
-    private void checarValorMinimo() {
-        checarValorMinimo(ataque);
-        checarValorMinimo(defesa);
-        checarValorMinimo(velocidade);
-        checarValorMinimo(resistencia);
-    }
+	private void checarValorMinimo() {
+		checarValorMinimo(ataque);
+		checarValorMinimo(defesa);
+		checarValorMinimo(velocidade);
+		checarValorMinimo(resistencia);
+	}
 
-    final void checarValorMinimo(Integer atributo) {
-        if (atributo < 3) {
-            throw new IllegalStateException("Todos os atributos devem ter pelo menos 3 pontos.");
-        }
-    }
+	final void checarValorMinimo(Integer atributo) {
+		if (atributo < 3) {
+			throw new IllegalStateException("Todos os atributos devem ter pelo menos 3 pontos.");
+		}
+	}
 
+	final void checarTotal() {
+		if (this.ataque + this.defesa + this.velocidade + this.resistencia != 20) {
+			throw new IllegalStateException("Somatório dos atributos deve ser igual a 20.");
+		}
+	}
 
-    final void checarTotal() {
-        if (this.ataque + this.defesa + this.velocidade + this.resistencia != 20) {
-            throw new IllegalStateException("Somatório dos atributos deve ser igual a 20.");
-        }
-    }
+	public void atacar(Personagem defensor, double modificadorAtaque, boolean eGolpeCritico) {
+		int danoBase = this.calcularDanoBase(modificadorAtaque);
+		int dano = this.calcularDanoInfringindo(danoBase, defensor.getDefesa(), eGolpeCritico);
+		defensor.receberDano(dano);
+	}
 
-    public void atacar(Personagem defensor, double modificadorAtaque, boolean eGolpeCritico) {
-        int danoBase = this.calcularDanoBase(modificadorAtaque);
-        int dano = this.calcularDanoInfringindo(danoBase, defensor.getDefesa(), eGolpeCritico);
-        defensor.receberDano(dano);
-    }
+	int calcularDanoInfringindo(int danoBase, int defesa, boolean eGolpeCritico) {
+		int dano = danoBase + this.ataque - defesa;
 
-    int calcularDanoInfringindo(int danoBase, int defesa, boolean eGolpeCritico) {
-        // TODO
-        return -1;
-    }
+		if (dano < 1) {
+			dano = 1;
+		}
 
-    private void receberDano(int danoInfringido) {
-        // TODO
-    }
+		if (eGolpeCritico) {
+			dano = (int) Math.round(dano * 1.5);
+		}
 
-    public int calcularDanoBase(double modificadorAtaque) {
-        // TODO Considere que o modificadorAtaque é um valor entre [0.8 e 1.2[
-        // 		Ele serve de base pra calcular o danoBase
-        //		Recebe como parâmetro para isolar melhor o método, facilitando seu teste
-        return -1;
-    }
+		return dano;
+	}
 
-    public Integer getAtaque() {
-        return ataque;
-    }
+	private void receberDano(int danoInfringido) {
+		this.vida -= danoInfringido;
 
-    void setAtaque(Integer ataque) {
-        this.ataque = ataque;
-    }
+		if (this.vida < 0) {
+			this.vida = 0;
+		}
+	}
 
-    public Integer getDefesa() {
-        return defesa;
-    }
+	public int calcularDanoBase(double modificadorAtaque) {
+		if (modificadorAtaque < 0.8 || modificadorAtaque >= 1.2) {
+			throw new IllegalArgumentException(
+					"Modificador de ataque deve estar entre 0.8 (inclusive) e 1.2 (exclusive).");
+		}
+		double danoBase = this.ataque * modificadorAtaque;
 
-    void setDefesa(Integer defesa) {
-        this.defesa = defesa;
-    }
+		return (int) Math.round(danoBase);
+	}
 
-    public Integer getVelocidade() {
-        return velocidade;
-    }
+	public Integer getAtaque() {
+		return ataque;
+	}
 
-    void setVelocidade(Integer velocidade) {
-        this.velocidade = velocidade;
-    }
+	void setAtaque(Integer ataque) {
+		this.ataque = ataque;
+	}
 
-    public Integer getResistencia() {
-        return resistencia;
-    }
+	public Integer getDefesa() {
+		return defesa;
+	}
 
-    void setResistencia(Integer resistencia) {
-        this.resistencia = resistencia;
-    }
+	void setDefesa(Integer defesa) {
+		this.defesa = defesa;
+	}
 
-    public Integer getVida() {
-        return vida;
-    }
+	public Integer getVelocidade() {
+		return velocidade;
+	}
 
-    public void setVida(Integer vida) {
-        this.vida = vida;
-    }
+	void setVelocidade(Integer velocidade) {
+		this.velocidade = velocidade;
+	}
+
+	public Integer getResistencia() {
+		return resistencia;
+	}
+
+	void setResistencia(Integer resistencia) {
+		this.resistencia = resistencia;
+	}
+
+	public Integer getVida() {
+		return vida;
+	}
+
+	public void setVida(Integer vida) {
+		this.vida = vida;
+	}
 }

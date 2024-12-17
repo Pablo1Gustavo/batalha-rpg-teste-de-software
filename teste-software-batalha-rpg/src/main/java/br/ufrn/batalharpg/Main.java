@@ -20,8 +20,13 @@ public class Main {
             if (batalha.temVencedor()) {
                 break;
             }
-
         }
 
+        Personagem vencedor = batalha.obterVencedor();
+        if (vencedor != null) {
+            System.out.println("O vencedor é: " + vencedor.getClass().getSimpleName() + " com " + vencedor.getVida() + " vida restante.");
+        } else {
+            System.out.println("A batalha terminou em empate.");
+        }
     }
 }
