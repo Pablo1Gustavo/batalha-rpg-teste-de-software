@@ -1,65 +1,67 @@
 package br.ufrn.batalharpg;
 
-public abstract class Personagem {
-	private Integer ataque;
+public abstract class Personagem
+{
+	public static final int TOTAL_ATRIBUTOS_REQUERIDO    = 20;
+	public static final int VALOR_MINIMO_ATRIBUTO        = 3;
+	public static final int MULTIPLICADOR_VIDA           = 5;
+	public static final double MODIFICADOR_ATAQUE_MINIMO = 0.8;
+	public static final double MODIFICADOR_ATAQUE_MAXIMO = 1.2;
+	
+	private Integer ataque, defesa, velocidade, resistencia, vida;
 
-	private Integer defesa;
+	Personagem() {}
 
-	private Integer velocidade;
-
-	private Integer resistencia;
-
-	private Integer vida;
-
-	Personagem() {
-	}
-
-	public Personagem(Integer ataque, Integer defesa, Integer velocidade, Integer resistencia) {
+	public Personagem(Integer ataque, Integer defesa, Integer velocidade, Integer resistencia)
+	{
 		this.ataque = ataque;
 		this.defesa = defesa;
 		this.velocidade = velocidade;
 		this.resistencia = resistencia;
+		this.vida = MULTIPLICADOR_VIDA * resistencia;
 
 		checarTotal();
 		checarValorMinimo();
 		checarRegraDeClasse();
-
-		this.vida = 5 * this.resistencia;
 	}
 
 	abstract void checarRegraDeClasse();
 
-	private void checarValorMinimo() {
-		checarValorMinimo(ataque);
-		checarValorMinimo(defesa);
-		checarValorMinimo(velocidade);
-		checarValorMinimo(resistencia);
-	}
-
-	final void checarValorMinimo(Integer atributo) {
-		if (atributo < 3) {
-			throw new IllegalStateException("Todos os atributos devem ter pelo menos 3 pontos.");
+	private final void checarValorMinimo()
+	{
+		if (
+			ataque < VALOR_MINIMO_ATRIBUTO ||
+			defesa < VALOR_MINIMO_ATRIBUTO ||
+			velocidade < VALOR_MINIMO_ATRIBUTO ||
+			resistencia < VALOR_MINIMO_ATRIBUTO
+		) {
+			throw new IllegalStateException(
+				String.format(
+					"Todos os atributos devem ter pelo menos %d pontos.",
+					VALOR_MINIMO_ATRIBUTO
+			));
 		}
 	}
 
-	final void checarTotal() {
-		if (this.ataque + this.defesa + this.velocidade + this.resistencia != 20) {
+	public final void checarTotal()
+	{
+		var total = this.ataque + this.defesa + this.velocidade + this.resistencia;
+		if (total != TOTAL_ATRIBUTOS_REQUERIDO)
+		{
 			throw new IllegalStateException("Somatório dos atributos deve ser igual a 20.");
 		}
 	}
 
-	public void atacar(Personagem defensor, double modificadorAtaque, boolean eGolpeCritico) {
+	public void atacar(Personagem defensor, double modificadorAtaque, boolean ehGolpeCritico)
+	{
 		int danoBase = this.calcularDanoBase(modificadorAtaque);
-		int dano = this.calcularDanoInfringindo(danoBase, defensor.getDefesa(), eGolpeCritico);
+		int dano = this.calcularDanoInfringindo(danoBase, defensor.getDefesa(), ehGolpeCritico);
 		defensor.receberDano(dano);
 	}
 
-	int calcularDanoInfringindo(int danoBase, int defesa, boolean eGolpeCritico) {
-		int dano = danoBase + this.ataque - defesa;
-
-		if (dano < 1) {
-			dano = 1;
-		}
+	int calcularDanoInfringindo(int danoBase, int defesa, boolean eGolpeCritico)
+	{
+		int dano = Math.max(danoBase + this.ataque - defesa, 1);
 
 		if (eGolpeCritico) {
 			dano = (int) Math.round(dano * 1.5);
@@ -68,18 +70,25 @@ public abstract class Personagem {
 		return dano;
 	}
 
-	private void receberDano(int danoInfringido) {
-		this.vida -= danoInfringido;
-
-		if (this.vida < 0) {
-			this.vida = 0;
-		}
+	private void receberDano(int danoInfringido) 
+	{
+		this.vida = Math.max(this.vida  - this.resistencia, 0);
 	}
 
-	public int calcularDanoBase(double modificadorAtaque) {
-		if (modificadorAtaque < 0.8 || modificadorAtaque >= 1.2) {
+	public int calcularDanoBase(double modificadorAtaque)
+	{
+		boolean modificadorEstaNoIntervalo =
+			modificadorAtaque >= MODIFICADOR_ATAQUE_MINIMO &&
+			modificadorAtaque <= MODIFICADOR_ATAQUE_MAXIMO;
+
+		if (!modificadorEstaNoIntervalo)
+		{
 			throw new IllegalArgumentException(
-					"Modificador de ataque deve estar entre 0.8 (inclusive) e 1.2 (exclusive).");
+				String.format(
+					"Modificador de ataque deve estar entre %.2f (inclusive) e %.2f (exclusive).",
+					MODIFICADOR_ATAQUE_MINIMO,
+					MODIFICADOR_ATAQUE_MAXIMO
+				));
 		}
 		double danoBase = this.ataque * modificadorAtaque;
 
