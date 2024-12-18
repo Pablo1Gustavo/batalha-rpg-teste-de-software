@@ -8,7 +8,7 @@ public abstract class Personagem
 	public static final double MODIFICADOR_ATAQUE_MINIMO = 0.8;
 	public static final double MODIFICADOR_ATAQUE_MAXIMO = 1.2;
 	
-	private Integer ataque, defesa, velocidade, resistencia, vida;
+	protected Integer ataque, defesa, velocidade, resistencia, vida;
 
 	Personagem() {}
 
